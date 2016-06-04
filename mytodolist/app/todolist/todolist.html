@@ -1,0 +1,96 @@
+<div class="row" ng-controller="TodolistCtrl">
+
+	<div class="large-10 columns">
+
+		<div data-alert ng-show="message" class="alert-box">{{message}}</div>
+
+		<!-- Add Form -->
+		<form class="row" ng-show="addFormShow" ng-submit="addFormSubmit()">
+			<h3>Add Task</h3>
+			<div class="row">
+				<div class="large-12 columns">
+					<label>
+						Title:
+						<input type="text" ng-model="title" placeholder="Task Title" required/>
+					</label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="large-12 columns">
+					<label>
+						Description:
+						<textarea ng-model="desc" placeholder="Task Description"></textarea>
+					</label>
+				</div>
+			</div>
+			<div class="row">
+			    <div class="large-12 columns">
+			        <input type="submit" value="Add Task" class="button" />
+			    </div>
+			</div>
+		</form>
+
+		<!-- Edit Form -->
+		<form class="row" ng-show="editFormShow" ng-submit="editFormSubmit()">
+			<h3>Edit Task</h3>
+			<div class="row">
+				<div class="large-12 columns">
+					<label>
+						Title:
+						<input type="text" ng-model="title" placeholder="Task Title" required/>
+					</label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="large-12 columns">
+					<label>
+						Description:
+						<textarea ng-model="desc" placeholder="Task Description"></textarea>
+					</label>
+				</div>
+			</div>
+			<div class="row">
+			    <div class="large-12 columns">
+			        <input type="submit" value="Edit Task" class="button" />
+			    </div>
+			</div>
+		</form>
+
+		<!-- Task Detail -->
+		<div class="row" ng-show="taskShow" >
+			<div class="panel">
+				<h3>{{taskTitle}}</h3>
+				<h6>{{taskDesc}}</h6>
+			</div>
+		</div>
+
+		<!-- Task List -->
+		<div class="row">
+			<h3>Task List</h3>
+			<table>
+			  <thead>
+			    <tr>
+			      <th width="50px"></th>
+			      <th width="200px;">Task</th>
+			      <th width="200px;">Actions</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			  	<tr ng-repeat="task in tasks">
+			  		<td ng-class="{completed: task.completed}"><input id="checkbox1" type="checkbox" ng-model="task.completed" ng-click="updateStatus(task)"></td>
+			  		<td ng-class="{completed: task.completed}"><a ng-click="showTask(task)">{{task.title}}</a></td>
+			  		<td ng-class="{completed: task.completed}">
+			  			<a class="button tiny success" ng-click="showEditForm(task)">Edit</a>
+			  			<a class="button tiny alert" ng-click="removeTask(task)">Delete</a>
+			  		</td>
+			  	</tr>
+			  </tbody>
+			</table>
+		</div>
+	</div>
+	<div class="small-12 large-2 columns">
+		<a class="button large" ng-click="showAddForm()" ng-hide="addFormShow || editFormShow">Add Task</a>
+		<a class="button large" ng-click="hideAddForm(); hideEditForm();" ng-show="addFormShow || editFormShow">Cancel</a>
+	</div>
+
+</div>
